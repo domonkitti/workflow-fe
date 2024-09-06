@@ -1,13 +1,12 @@
-"use client"; // บอกให้ Next.js ทำงานฝั่ง Client-side
+"use client";
 
 import React from "react";
-import TableHeader from "@/components/Header"; // นำเข้าส่วน Header ที่แสดงหัวตาราง
+import TableHeader from "@/components/Header"; 
 import RenderTable from "@/components/RenderTable";
 
 
 
 const App = () => {
-  // ข้อมูลสินค้า
   const data = [
     {
       id: 1,

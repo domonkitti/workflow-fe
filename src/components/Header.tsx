@@ -8,6 +8,7 @@ const TableHeader = () => {
         <th scope="col" className={tableHeaderClass}>Title</th>
         <th scope="col" className={tableHeaderClass}>Amount</th>
         <th scope="col" className={tableHeaderClass}>Actions</th>
+        <th scope="col" className={tableHeaderClass}>ปุ่มเดิม</th>
       </tr>
     </thead>
   );

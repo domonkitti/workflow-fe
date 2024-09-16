@@ -1,43 +1,35 @@
 "use client";
 
-import React, { useState } from "react";
-import TableHeader from "@/components/Header";
-import RenderTable from "@/components/RenderTable";
-import ProductForm from "@/components/ProductForm";
+import React from "react";
+import { DataForAll, ItemDataProvider } from "@/contexts/ItemDataContext";  // นำเข้า Context และ Provider
+import BudgetPanel from "@/components/BudgetPanel";
+import BudgetRequestDataTable from "../components/BudgetRequestDataTable";
+import Header from "@/components/Navbar";
 
-const App = () => {
-  const [data, setData] = useState([
-    {
-      id: 1,
-      title: "Monitor",
-      amount: "$2500.00",
-      imageUrl: "https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg",
-    },
-    {
-      id: 2,
-      title: "Hard Disk/SSD",
-      amount: "$2000.75",
-      imageUrl: "https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg",
-    },
-  ]);
-
-  const handleAddProduct = (product: { id: number; title: string; amount: string; imageUrl: string }) => {
-    product.id = data.length + 1; // Automatically assign the next ID
-    setData([...data, product]);
-  };
+const PageContent = () => {
+  // ใช้ DataForAll เพื่อเข้าถึงข้อมูลจาก Context
+  const itemData = DataForAll();
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Product List</h1>
-
-      {/* Product Form Component */}
-      <ProductForm onAddProduct={handleAddProduct} />
-
-      <table className="min-w-full border-collapse bg-white shadow-lg">
-        <TableHeader />
-        <RenderTable products={data} />
-      </table>
+    <div>
+      <Header />
+      <main className="container mx-auto">
+        <div className="mt-4">
+          <BudgetPanel items={itemData} />
+        </div>
+        <div className="mt-4">
+          <BudgetRequestDataTable items={itemData} />
+        </div>
+      </main>
     </div>
+  );
+};
+
+const App = () => {
+  return (
+    <ItemDataProvider> {/* ห่อ component ด้วย ItemDataProvider */}
+      <PageContent />
+    </ItemDataProvider>
   );
 };
 

@@ -27,7 +27,7 @@ const PageContent = () => {
 
 const App = () => {
   return (
-    <ItemDataProvider> {/* ห่อ component ด้วย ItemDataProvider */}
+    <ItemDataProvider>
       <PageContent />
     </ItemDataProvider>
   );

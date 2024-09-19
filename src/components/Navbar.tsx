@@ -1,6 +1,37 @@
+"use client"; // บอกว่าเป็น Client Component
 import Link from "next/link";
+import React, { useState } from 'react';
+import { Login } from '@/services/user'; // ฟังก์ชันล็อกอินจาก service
 
 function Header() {
+  const [formData, setFormData] = useState({
+    username: '',
+    password: ''
+  });
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // สถานะการล็อกอิน
+  // ฟังก์ชันจัดการการเปลี่ยนค่า input
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // ฟังก์ชันจัดการการล็อกอิน
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const response = await Login(formData);
+      if (response.status === 200) {
+        alert('Login successful!');
+        setIsLoggedIn(true); // ตั้งค่าสถานะว่าล็อกอินแล้ว
+      }
+    } catch (error: any) {
+      alert('ล็อกอินไม่สำเร็จ: ' + error.response.data.message);
+    }
+  };
+
   return (
     <header className="bg-white border-b">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -11,15 +42,38 @@ function Header() {
           <Link href="/add" className="text-sm">
             ขอตั้งงบประมาณ
           </Link>
-          <Link href="/approval" className="text-sm">
-            Approval
-          </Link>
         </nav>
         <div className="text-sm">
-          admin@test.com |{" "}
-          <Link href="/logout" className="text-blue-600 hover:underline">
-            Logout
-          </Link>
+          {isLoggedIn ? (
+            <span>{formData.username}</span> // แสดงข้อความหลังล็อกอินสำเร็จ
+          ) : (
+            <form onSubmit={handleSubmit} className="inline-flex items-center space-x-2">
+              <input
+                type="text"
+                name="username"
+                placeholder="Username"
+                value={formData.username}
+                onChange={handleChange}
+                className="p-1 border border-gray-300 rounded"
+                required
+              />
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={formData.password}
+                onChange={handleChange}
+                className="p-1 border border-gray-300 rounded"
+                required
+              />
+              <button
+                type="submit"
+                className="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              >
+                Login
+              </button>
+            </form>
+          )}
         </div>
       </div>
     </header>

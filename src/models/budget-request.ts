@@ -5,3 +5,9 @@ export interface BudgetRequest {
   quantity: number;
   status: "PENDING" | "APPROVED" | "REJECTED";
 }
+
+export interface AddBudget {
+  title: string;
+  price: number;
+  quantity: number;
+}

@@ -7,7 +7,7 @@ import { AddBudget } from "@/models/budget-request";
 //ขี้เกียจเอาไปไว้ที่อื่นแล้วมันใช้ตรงนี้ที่เดียว
 
 
-function EditBudgetRequest() {
+function AddOrEdit() {
   const {
     register,
     handleSubmit,
@@ -127,4 +127,4 @@ function EditBudgetRequest() {
   );
 }
 
-export default EditBudgetRequest;
+export default AddOrEdit;

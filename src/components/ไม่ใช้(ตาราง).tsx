@@ -13,7 +13,7 @@ function BudgetRequestDataTable({ items }: BudgetRequestDataTableProps) {
   const [currentItems, setCurrentItems] = useState<BudgetRequest[]>([]);
 
   // อัปเดต currentItems เมื่อ items จาก props เปลี่ยนแปลง
-    useEffect(() => {
+  useEffect(() => {
     setCurrentItems(items);
   }, [items]);
 
@@ -30,10 +30,8 @@ function BudgetRequestDataTable({ items }: BudgetRequestDataTableProps) {
 
       // อัปเดต state เพื่อ re-render component
       setCurrentItems(updatedItems);
-    } catch (error:any) {
-      console.log(error)
-      console.log(typeof error) 
-      alert(`เปลี่ยนสถานะไม่สำเร็จ: ${JSON.stringify(error.response.data.message)}`);
+    } catch (error) {
+      alert("Failed to update status");
     }
   };
 

@@ -4,13 +4,12 @@ import Link from "next/link";
 import Header from "@/components/Navbar";
 import { createBudgetItem } from "@/services/budget-item";
 import { AddBudget } from "@/models/budget-request";
-//ขี้เกียจเอาไปไว้ที่อื่นแล้วมันใช้ตรงนี้ที่เดียว
-
 
 function EditBudgetRequest() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<AddBudget>({
     defaultValues: {
@@ -19,29 +18,27 @@ function EditBudgetRequest() {
       price: 0,
     },
   });
-  
+
 
   const onSubmit = async (data: AddBudget) => {
     try {
-      // แปลง quantity และ price กลับเป็น number ก่อนส่งไปยัง API
       const parsedData = {
         ...data,
-        quantity: parseInt(data.quantity.toString(), 10), // แปลง quantity เป็น number
-        price: parseFloat(data.price.toString()),         // แปลง price เป็น number
+        quantity: parseInt(data.quantity.toString(), 10),
+        price: parseFloat(data.price.toString()),
       };
-      
-      // เรียก API เพื่อส่งข้อมูลที่แปลงแล้ว
+
       const createdItem = await createBudgetItem(parsedData);
       alert(`Item created successfully: ${createdItem.title}`);
-    } catch (error:any) {
-      //console.log(error)
+      reset();
+    } catch (error: any) {
       alert(`Error creating item: ${JSON.stringify(error.response.data.message)}`);
     }
   };
 
+
   return (
     <>
-      <Header />
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto">
           <div className="bg-white shadow-md rounded-lg p-6">
@@ -80,8 +77,7 @@ function EditBudgetRequest() {
                 />
                 {errors.quantity && (
                   <p className="mt-1 text-sm text-red-600">
-                    {errors.quantity.type === "required" &&
-                      "Quantity is required"}
+                    {errors.quantity.type === "required" && "Quantity is required"}
                     {errors.quantity.type === "min" &&
                       "Quantity must be greater than 0"}
                   </p>

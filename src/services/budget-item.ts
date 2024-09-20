@@ -76,8 +76,14 @@ interface changestatus {
 
 
 
-export const ChangeItemStatus = async (id :any, body: changestatus): Promise<BudgetRequest> => {
+export const ChangeItemStatus = async (id :number, body: changestatus): Promise<BudgetRequest> => {
   const response = await api.patch(`/items/${id}`, body);
+  const { data } = response.data;
+  return data;
+};
+// ------------------------------------ลบ
+export const DeleteItem = async (id :number): Promise<BudgetRequest> => {
+  const response = await api.delete(`/items/${id}`);
   const { data } = response.data;
   return data;
 };

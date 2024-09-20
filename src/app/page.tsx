@@ -12,7 +12,6 @@ const PageContent = () => {
 
   return (
     <div>
-      <Header />
       <main className="container mx-auto">
         <div className="mt-4">
           <BudgetPanel items={itemData} />

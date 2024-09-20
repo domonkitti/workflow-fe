@@ -51,7 +51,6 @@ function TestComponent() {
 
   return (
     <>
-      <Header />
       {itemData.map((item) => (
         <main key={item.id} className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto">

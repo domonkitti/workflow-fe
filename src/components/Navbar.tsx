@@ -1,15 +1,13 @@
-"use client"; // บอกว่าเป็น Client Component
+"use client";
 import Link from "next/link";
 import React, { useState } from 'react';
-import { Login } from '@/services/user'; // ฟังก์ชันล็อกอินจาก service
-
+import { Login } from '@/services/user'; 
 function Header() {
   const [formData, setFormData] = useState({
     username: '',
     password: ''
   });
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // สถานะการล็อกอิน
-  // ฟังก์ชันจัดการการเปลี่ยนค่า input
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
